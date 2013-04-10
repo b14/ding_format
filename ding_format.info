@@ -1,0 +1,6 @@
+; $Id$
+name = Ding formatter module
+description = This module provides additional templating and formatting options for ding2
+core = 7.x
+package = Ding!
+files[] = ding_format.module

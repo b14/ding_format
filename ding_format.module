@@ -1,0 +1,57 @@
+<?php
+// $id$
+
+/**
+ * @file
+ * Ding formatter module
+ *
+ * Provides additional templating granularity for ting_objects
+ */
+
+/**
+ * implements hook_preprocess_ding_object
+ */
+function ding_format_preprocess_ting_object(&$vars) {
+  $object = $vars['object'];
+  $element = $vars['elements'];
+  if($element['#entity_type'] == 'ting_object') {
+    switch($object->getType()) {
+      
+      case 'book':
+        // Book template
+        $vars['theme_hook_suggestions'][] = 'ting_object__book';
+        $vars['theme_hook_suggestions'][] = 'ting_object__book__' . $element['#view_mode'];
+        /*if (....) {
+          // Standard book template book.tpl.php
+        } else {
+          // Specific book template book--romankuffert.tpl.php
+          ...
+          ...      
+        }*/
+        break;
+      case 'Cd (musik)':
+      case 'Node':
+      case 'Vinyl':
+        $vars['theme_hook_suggestions'][] = 'ting_object__musik';
+        $vars['theme_hook_suggestions'][] = 'ting_object__musik__' . $element['#view_mode'];
+        // Music template
+        // ..here is the actual hard work
+        break;
+      case 'Artikel':
+      case 'Avisartikel':
+      case 'Netdokument':
+      case 'Tidsskrift':
+      case 'Tidsskriftsartikel':
+        $vars['theme_hook_suggestions'][] = 'ting_object__article';
+        $vars['theme_hook_suggestions'][] = 'ting_object__article__' . $element['#view_mode'];
+        // Music template
+        // ..here is the actual hard work
+        break;
+      
+    }
+    // Default classes
+    // $vars['classes'][] = drupal_html_class($element['language']);
+    // ..
+    // Other default classes?
+  }
+}
